@@ -1,0 +1,31 @@
+
+name: Build Android APK (kivy/buildozer)
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build-apk:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Run Buildozer in Docker (build APK)
+        env:
+          GITHUB_WORKSPACE: ${{ github.workspace }}
+        run: |
+          docker run --rm -v "$GITHUB_WORKSPACE":/home/user/hostcwd -w /home/user/hostcwd kivy/buildozer:latest \
+            /bin/bash -lc "buildozer -v android debug"
+
+      - name: Upload APK artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: android-apk
+          path: |
+            bin/*.apk
+
+# Nota: Este workflow usa la imagen oficial 'kivy/buildozer' que ya incluye Buildozer,
+# Android SDK/NDK y dependencias comunes. Si necesitas otra versión de NDK/SDK,
+# modifica la imagen o extiéndela en Dockerfile.buildozer.

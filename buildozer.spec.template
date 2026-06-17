@@ -1,0 +1,21 @@
+
+[app]
+title = Calculador Años Meses Días
+package.name = calculador
+package.domain = org.example
+source.dir = .
+source.include_exts = py,png,jpg,kv
+version = 0.1
+requirements = python3,kivy==2.1.0,num2words
+orientation = portrait
+android.api = 31
+android.minapi = 21
+android.ndk = 21b
+
+# Entry point: ajustar al nombre del archivo principal (kivy_app.py)
+entrypoint = kivy_app.py
+
+# Carpeta donde Buildozer colocará los artefactos (bin/)
+android.arch = armeabi-v7a
+
+# Ajusta estas configuraciones según sea necesario.
