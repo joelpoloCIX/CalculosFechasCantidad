@@ -25,7 +25,7 @@ jobs:
             -w /home/user/hostcwd \
             --entrypoint "" \
             kivy/buildozer:latest \
-            buildozer -v android debug
+            sh -c "yes | buildozer -v android debug"
 
       - name: Upload APK artifact
         uses: actions/upload-artifact@v4
