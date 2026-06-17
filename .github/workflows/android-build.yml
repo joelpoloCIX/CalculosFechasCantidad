@@ -16,7 +16,14 @@ jobs:
         env:
           GITHUB_WORKSPACE: ${{ github.workspace }}
         run: |
-          docker run --rm -v "$GITHUB_WORKSPACE":/home/user/hostcwd -w /home/user/hostcwd kivy/buildozer:latest \
+          # The kivy/buildozer image sets an entrypoint that already runs buildozer.
+          # Passing "buildozer" again makes Buildozer treat it as a target and fail.
+          # Use --entrypoint "" and call buildozer explicitly, or pass args directly.
+          docker run --rm \
+            -v "$GITHUB_WORKSPACE":/home/user/hostcwd \
+            -w /home/user/hostcwd \
+            --entrypoint "" \
+            kivy/buildozer:latest \
             buildozer -v android debug
 
       - name: Upload APK artifact
