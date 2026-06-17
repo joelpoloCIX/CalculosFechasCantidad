@@ -3,7 +3,7 @@ name: Build Android APK (kivy/buildozer)
 
 on:
   push:
-    branches: [ main ]
+    branches: [ main, kivy-android ]
 
 jobs:
   build-apk:
